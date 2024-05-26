@@ -12,8 +12,9 @@ fi
 unset __conda_setup
 
 conda activate mathllmenv
-cd /path/to/project/mathllm-finetune
 
 wandb login "wandb token"
 
-OMP_NUM_THREADS=1 torchrun --nnodes $WORLD_SIZE --node_rank $RANK --master_addr $MASTER_ADDR --master_port $MASTER_PORT --nproc_per_node 8 ./scripts/run_sft_lce.py ${CONFIG}
+CONFIG=${1}
+
+ACCELERATE_LOG_LEVEL=info accelerate launch --config_file ./recipes/accelerate_configs/deepspeed_zero3_4gpu.yaml ./scripts/run_sft_lce.py ${CONFIG}

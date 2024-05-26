@@ -12,10 +12,9 @@ fi
 unset __conda_setup
 
 conda activate mathllmenv
-cd /path/to/project/mathllm-finetune
 
 wandb login "wandb token"
 
 CONFIG=${1}
 
-ACCELERATE_LOG_LEVEL=info accelerate launch --config_file ./recipes/accelerate_configs/deepspeed_zero3_4gpu.yaml ./scripts/run_sft_lce.py ${CONFIG}
+ACCELERATE_LOG_LEVEL=info accelerate launch --config_file ./recipes/accelerate_configs/deepspeed_zero3_8gpu.yaml ./scripts/run_sft_lce.py ${CONFIG}
